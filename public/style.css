@@ -1,0 +1,68 @@
+* { margin: 0; padding: 0; box-sizing: border-box;}
+html { height: 100%;}
+body { font: 13px; height: 100%; font-family: Arial, Helvetica, sans-serif;}
+form { background: darkgray; width: 100%; height: 10%; padding: .5%;}
+form input { border: 0; padding-left: 15px; width: 85%; margin-right: 0.5%; height:65%}
+form button { width: 14%; height: 65%; background: lightgrey; border: none; padding: 10px; font-size: large;}
+
+#header{
+	height: 5%;
+	width: 100%;
+	background: darkgrey;
+}
+
+#title{
+    text-align: center;
+    padding-top: 5px;
+}
+
+#background{
+    height: 85%;
+    width: 100%;
+    position: relative;
+    border: 0.5px solid darkgray;
+}
+
+#messages {
+    list-style-type: none;
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    line-height: 1.5em;
+    position: absolute;
+    bottom: 0;
+}
+
+#messages li {
+    padding: 5px 5px;
+}
+
+#users{
+    font: 20px;
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    line-height: 1.5em;
+    position: absolute;
+    bottom: 0;
+}
+
+#users li {
+    padding: 5px 5px;
+}
+
+#messageBlock{
+    height: 100%;
+    width: 85%;
+    border: 2px solid darkgray;
+    position: relative;
+}
+
+#userBlock{
+	height: 100%;
+	border: 2px solid darkgray;
+    position: absolute;
+    bottom: 0;
+    left: 85%;
+    width: 15%;
+}
