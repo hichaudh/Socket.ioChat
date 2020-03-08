@@ -25,6 +25,7 @@ $(() => {
         }
         $('#messages').append($('<li>').html(displayMessage));
         $('#messages').find('li:last').find('span').css('color', msg.color);
+        $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500);
 
     });
 
