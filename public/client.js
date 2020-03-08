@@ -25,13 +25,17 @@ $(() => {
         }
         $('#messages').append($('<li>').html(displayMessage));
         $('#messages').find('li:last').find('span').css('color', msg.color);
-        $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500);
-
+        $('#messages').animate({
+            scrollTop: $('#messages').prop('scrollHeight')
+        }, 500);
     });
 
     socket.on('nameChanged', (msg) =>{
         let displayMessage = "You are now <span>" + msg.name + "</span>.";
         $('#messages').append($('<li>').html(displayMessage));
+        $('#messages').animate({
+            scrollTop: $('#messages').prop('scrollHeight')
+        }, 500);
         currentUser = msg.name;
         Cookies.set('name', msg.name, { expires: 365});
     });

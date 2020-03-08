@@ -3,6 +3,7 @@ let express = require('express');
 let app = express();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
+let dialog = require('dialog');
 let userList = [];
 let messageList = [];
 let nickCheck = '/nick';
@@ -20,7 +21,6 @@ app.get('/', function(req, res){
 
 io.on('connection', (socket) => {
     console.log("a user connected");
-
     let user = { name: '', color: ''};
     socket.on('chat message', (msg) => {
         let date = new Date();
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
                      socket.emit('nameChanged', user);
                      io.emit('updateUserList', userList);
                  } else {
-                     
+                     dialog.err('username taken', 'Error');
                  }
             }
         } else if (checkText[0] === colorCheck){
@@ -60,22 +60,30 @@ io.on('connection', (socket) => {
                 user.color = '#' + newNickColor;
                 socket.emit('colorChanged', user);
                 io.emit('updateUserList', userList);
+            } else {
+                dialog.err('wrong hex value', 'Error');
             }
         } else {
             if (messageList.length <= 200){
                 messageList.push(message);
-            } else if (messageList.length > 200){
+            } else {
                 messageList.shift();
                 messageList.push(message);
             }
             io.emit('chat message', message);
         }
     });
-
+    socket.on('disconnect', () => {
+        console.log('a user disconnected');
+        userList.splice(userList.findIndex((quitter) => {
+            return quitter.name === user.name;
+        }), 1);
+        io.emit('updateUserList', userList);
+    });
     socket.on('cookies', (msg) => {
         let cookieName = msg;
         let userNum = Math.floor(Math.random() * 11)
-        let newUser = {name: 'User ', color: '##999999'};
+        let newUser = {name: 'User ', color: '#000000'};
         console.log(cookieName)
 
         if (cookieName !== ''){
@@ -86,7 +94,9 @@ io.on('connection', (socket) => {
                 userList.push(user);
             } else {
                 user = newUser;
+                //dialog.err('username taken', 'Error');
                 user.name = user.name + userNum;
+                //user.color = '#000000';
                 userList.push(user);
             }
         } else {
@@ -99,14 +109,6 @@ io.on('connection', (socket) => {
             socket.emit('chat message', index);
         }
         socket.emit('nameChanged', user);
-        io.emit('updateUserList', userList);
-    });
-    
-    socket.on('disconnect', () => {
-        console.log('a user disconnected');
-        userList.splice(userList.findIndex((quitter) => {
-            return quitter.name === user.name;
-        }), 1);
         io.emit('updateUserList', userList);
     });
 });
