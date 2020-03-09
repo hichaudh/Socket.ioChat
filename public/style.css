@@ -8,12 +8,21 @@ form button { width: 14%; height: 65%; background: lightgrey; border: none; padd
 #header{
 	height: 5%;
 	width: 100%;
-	background: darkgrey;
+    background: darkgrey;
+    clear: both;
 }
 
 #title{
-    text-align: center;
+    text-align: left;
+    padding-top: 3px;
+    float: left;
+}
+
+#usersOnline{
     padding-top: 5px;
+    margin-right: 60px;
+    margin-inline-start: 100px;
+    float: right;
 }
 
 #background{
